@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 modules/tool_detector.py
 Cross-references installed packages AND filesystem paths against the PMGP
@@ -650,3 +651,16 @@ def _safe_read(path: str, max_bytes: int = 4096) -> str:
 def _load_signatures(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as fh:
         return json.load(fh)
+=======
+"""Compatibility wrapper for the tool detector public API."""
+
+from modules.tool_detector_core import correlate_tool_evidence, detect_tools
+from modules.tool_detector_models import DetectedTool, ToolDetectionResult
+
+__all__ = [
+    "DetectedTool",
+    "ToolDetectionResult",
+    "detect_tools",
+    "correlate_tool_evidence",
+]
+>>>>>>> 3c10caedda95e6d16e2567deb5bee895b8eae16c

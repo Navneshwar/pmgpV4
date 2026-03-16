@@ -1,5 +1,6 @@
 """
 modules/live_analyzer.py
+<<<<<<< HEAD
 Volatile artifact extraction from /proc on a live Linux system.
 Inspects process cmdlines, environment variables, memory maps,
 active network connections, and suspicious indicators without
@@ -403,3 +404,25 @@ def _safe_read_binary(path: str, max_bytes: int = 65536) -> bytes:
             return fh.read(max_bytes)
     except OSError:
         return b""
+=======
+Public entry-point — delegates entirely to the live_analyzer sub-package.
+
+Keeping this file means nothing else in the project needs to change:
+    from modules.live_analyzer import analyze_live_system   # still works
+    from modules.live_analyzer import LiveAnalysisResult    # still works
+"""
+
+from modules.live_analyzer import (       # noqa: F401  (re-export)
+    analyze_live_system,
+    LiveAnalysisResult,
+    ProcessFinding,
+    NetworkConnection,
+)
+
+__all__ = [
+    "analyze_live_system",
+    "LiveAnalysisResult",
+    "ProcessFinding",
+    "NetworkConnection",
+]
+>>>>>>> 3c10caedda95e6d16e2567deb5bee895b8eae16c
