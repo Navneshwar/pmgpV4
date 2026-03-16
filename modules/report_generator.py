@@ -199,6 +199,7 @@ def _section_os_profile(os_profile: OSProfile) -> str:
 def _section_tool_assessment(tool_result: ToolDetectionResult) -> str:
     rows = []
     for tool in tool_result.detected_tools:
+        status = "Present" if tool.present_on_disk else "Removed"
         rows.append(
             "<tr>"
             f"<td><strong>{_esc(tool.name)}</strong></td>"
@@ -206,18 +207,20 @@ def _section_tool_assessment(tool_result: ToolDetectionResult) -> str:
             f"<td><code>{_esc(tool.mitre_technique)}</code><br><span class='muted'>{_esc(tool.category)}</span></td>"
             f"<td>{_badge(tool.risk_level)}</td>"
             f"<td>{_esc(tool.detection_method)}</td>"
+            f"<td>{_esc(status)}</td>"
             f"<td>{_esc(_timestamp_text(tool.mtime, 'Not recovered'))}</td>"
             f"<td>{_esc(_timestamp_text(tool.atime, 'Not observed'))}</td>"
+            f"<td>{_esc(_timestamp_text(tool.removal_time, 'Not observed'))}</td>"
             "</tr>"
         )
     if not rows:
-        rows.append("<tr><td colspan='7' class='empty'>No suspicious tools detected.</td></tr>")
+        rows.append("<tr><td colspan='9' class='empty'>No suspicious tools detected.</td></tr>")
     return (
         "<section>"
         "<h2>4. Tool And Capability Assessment</h2>"
-        "<p>Only corroborated tool findings are retained in the final report. Installed and last-used timestamps are shown when evidence exists.</p>"
+        "<p>Only corroborated tool findings are retained in the final report. Installed, last-used, and removal timestamps are shown when evidence exists.</p>"
         "<table>"
-        "<tr><th>Identifier</th><th>Functionality Note</th><th>MITRE Mapping</th><th>Classification</th><th>Detection</th><th>Installed</th><th>Last Used</th></tr>"
+        "<tr><th>Identifier</th><th>Functionality Note</th><th>MITRE Mapping</th><th>Classification</th><th>Detection</th><th>Status</th><th>Installed</th><th>Last Used</th><th>Removed</th></tr>"
         + "".join(rows)
         + "</table>"
         "</section>"
@@ -231,6 +234,8 @@ def _section_timeline(tool_result: ToolDetectionResult, risk_report: RiskReport)
             events.append((tool.mtime, f"{tool.name} installed ({tool.install_time_source or tool.detection_method})"))
         if tool.atime:
             events.append((tool.atime, f"{tool.name} last used ({tool.last_used_source or 'usage evidence'})"))
+        if tool.removal_time:
+            events.append((tool.removal_time, f"{tool.name} removed ({tool.removal_time_source or 'package_log_remove'})"))
     if risk_report.time_of_attack and risk_report.time_of_attack not in ("Not determined", "No attack detected"):
         events.append((None, f"Earliest suspicious install inferred: {risk_report.time_of_attack}"))
     ordered = sorted([e for e in events if e[0] is not None], key=lambda item: item[0])
@@ -448,7 +453,10 @@ def _tool_dict(tool) -> dict:
         "aliases": list(tool.aliases),
         "evidence_sources": list(tool.evidence_sources),
         "install_time_source": tool.install_time_source,
+        "removal_time": tool.removal_time,
+        "removal_time_source": tool.removal_time_source,
         "last_used_source": tool.last_used_source,
+        "present_on_disk": tool.present_on_disk,
         "corroborated": tool.corroborated,
     }
 

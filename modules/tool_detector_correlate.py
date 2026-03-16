@@ -48,6 +48,8 @@ def correlate_tool_evidence(
             if evidence:
                 append_unique(tool.evidence_sources, evidence)
                 tool.corroborated = True
+                if not tool.last_used_source and artefact_type in {"shell_history", "recent_files"}:
+                    tool.last_used_source = artefact_type
 
         for finding in findings:
             proc_text = " ".join([finding.comm or "", finding.cmdline or "", " ".join(finding.notes)]).lower()
@@ -64,11 +66,16 @@ def correlate_tool_evidence(
         tool_result.detected_tools = [
             tool for tool in tool_result.detected_tools
             if not (
-                tool.detection_method == "package_db"
+                tool.detection_method in {"package_db", "removed_package"}
                 and tool.risk_level in {"dual_use", "anonymization"}
                 and not tool.corroborated
             )
         ]
+
+    tool_result.detected_tools = [
+        tool for tool in tool_result.detected_tools
+        if tool.detection_method != "removed_package" or tool.corroborated
+    ]
 
     return tool_result
 

@@ -168,3 +168,78 @@ def config_pass(
                 )
             )
             detected_by_name[tool_name] = result.detected_tools[-1]
+
+
+def removed_package_pass(
+    sigs: dict,
+    root_path: str,
+    path_stats: dict[str, tuple[Optional[float], Optional[float]]],
+    installed: dict[str, float],
+    historical_installs: dict[str, float],
+    historical_install_sources: dict[str, str],
+    removed: dict[str, float],
+    removal_sources: dict[str, str],
+    result: ToolDetectionResult,
+    detected_by_name: dict[str, DetectedTool],
+) -> None:
+    for risk_level, tools in sigs.items():
+        for tool_name, meta in tools.items():
+            if tool_name in detected_by_name:
+                continue
+
+            removed_pkg = None
+            install_time = None
+            removal_time = None
+            install_source = ""
+
+            for pkg_variant in meta.get("packages", []):
+                pkg_key = pkg_variant.lower()
+                if pkg_key in installed or pkg_key not in removed:
+                    continue
+                removed_pkg = pkg_variant
+                install_time = historical_installs.get(pkg_key)
+                install_source = historical_install_sources.get(pkg_key, "")
+                removal_time = removed[pkg_key]
+                break
+
+            if removed_pkg is None:
+                continue
+
+            binary_hits, latest_atime = find_binary_hits(
+                root_path, path_stats, meta.get("binary_paths", []), result
+            )
+            config_hits, config_mtime = find_config_hits(
+                root_path, path_stats, meta.get("config_traces", []), result
+            )
+
+            if binary_hits:
+                continue
+
+            if (not install_time) and config_mtime:
+                install_time = config_mtime
+                install_source = "config_mtime"
+
+            result.detected_tools.append(
+                DetectedTool(
+                    name=tool_name,
+                    risk_level=risk_level,
+                    matched_package=removed_pkg,
+                    description=meta.get("description", "") + " [historical package removed]",
+                    mitre_technique=meta.get("mitre_technique", ""),
+                    category=meta.get("category", ""),
+                    detection_method="removed_package",
+                    mtime=install_time,
+                    atime=latest_atime,
+                    binary_paths=[],
+                    config_paths=config_hits,
+                    aliases=build_aliases(tool_name, meta),
+                    evidence_sources=["package_log_remove"],
+                    install_time_source=install_source,
+                    removal_time=removal_time,
+                    removal_time_source=removal_sources.get(removed_pkg.lower(), ""),
+                    last_used_source="binary_atime" if latest_atime else "",
+                    present_on_disk=False,
+                    corroborated=bool(config_hits),
+                )
+            )
+            detected_by_name[tool_name] = result.detected_tools[-1]

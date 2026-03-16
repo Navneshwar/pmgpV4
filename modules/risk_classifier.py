@@ -373,7 +373,15 @@ def _tool_to_risk_item(tool: DetectedTool) -> RiskItem:
         "package_db": "",
         "filesystem": " [binary found outside package manager]",
         "config":     " [configuration trace found]",
+        "removed_package": " [package logs show the tool was removed after installation]",
     }.get(tool.detection_method, "")
+
+    if tool.detection_method == "removed_package":
+        evidence = f"Package log evidence: {tool.matched_package}"
+        if tool.removal_time_source:
+            evidence += f" | Removal source: {tool.removal_time_source}"
+    else:
+        evidence = f"{'Package' if tool.detection_method == 'package_db' else 'Path'}: {tool.matched_package}"
 
     return RiskItem(
         source="tool",
@@ -382,8 +390,7 @@ def _tool_to_risk_item(tool: DetectedTool) -> RiskItem:
         description=tool.description + method_tag,
         mitre_technique=tool.mitre_technique.split(" ")[0] if tool.mitre_technique else "",
         mitre_category=tool.category,
-        evidence=f"{'Package' if tool.detection_method == 'package_db' else 'Path'}: "
-                 f"{tool.matched_package}",
+        evidence=evidence,
     )
 
 
@@ -460,6 +467,9 @@ def _build_summary(
         )
     if tool_result.config_hits:
         lines.append(f"Configuration traces found: {len(tool_result.config_hits)}")
+    removed_tools = [tool for tool in tool_result.detected_tools if not tool.present_on_disk]
+    if removed_tools:
+        lines.append(f"Historically installed but removed tools: {len(removed_tools)}")
     if os_profile.filesystem_artefacts:
         lines.append(
             f"Filesystem artefacts: {len(os_profile.filesystem_artefacts)} "

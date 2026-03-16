@@ -18,7 +18,10 @@ class DetectedTool:
     aliases: list[str] = field(default_factory=list)
     evidence_sources: list[str] = field(default_factory=list)
     install_time_source: str = ""
+    removal_time: Optional[float] = None
+    removal_time_source: str = ""
     last_used_source: str = ""
+    present_on_disk: bool = True
     corroborated: bool = False
 
 

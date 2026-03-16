@@ -11,8 +11,15 @@ _DPKG_LOG_RE = re.compile(
     r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+"
     r"(install|upgrade)\s+([A-Za-z0-9.+_-]+)(?::\S+)?\s+"
 )
+_DPKG_REMOVE_RE = re.compile(
+    r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\s+"
+    r"(remove|purge)\s+([A-Za-z0-9.+_-]+)(?::\S+)?\s+"
+)
 _PACMAN_LOG_RE = re.compile(
     r"^\[(.+?)\]\s+\[ALPM\]\s+(installed|upgraded)\s+([A-Za-z0-9.+_-]+)\s+\("
+)
+_PACMAN_REMOVE_RE = re.compile(
+    r"^\[(.+?)\]\s+\[ALPM\]\s+(removed)\s+([A-Za-z0-9.+_-]+)\s+\("
 )
 
 
@@ -135,6 +142,39 @@ def parse_pacman_log_install_times(root: str) -> dict[str, float]:
             continue
         pkg_name = pkg_name.lower()
         if pkg_name not in times or ts_value < times[pkg_name]:
+            times[pkg_name] = ts_value
+    return times
+
+
+def parse_dpkg_log_removal_times(root: str) -> dict[str, float]:
+    times: dict[str, float] = {}
+    for rel_path in ("var/log/dpkg.log", "var/log/dpkg.log.1"):
+        for line in safe_read(join_root(root, rel_path), max_bytes=5_000_000).splitlines():
+            match = _DPKG_REMOVE_RE.match(line.strip())
+            if not match:
+                continue
+            timestamp, _action, pkg_name = match.groups()
+            ts_value = parse_log_timestamp(timestamp, "%Y-%m-%d %H:%M:%S")
+            if ts_value is None:
+                continue
+            pkg_name = pkg_name.lower()
+            if pkg_name not in times or ts_value > times[pkg_name]:
+                times[pkg_name] = ts_value
+    return times
+
+
+def parse_pacman_log_removal_times(root: str) -> dict[str, float]:
+    times: dict[str, float] = {}
+    for line in safe_read(join_root(root, "var/log/pacman.log"), max_bytes=5_000_000).splitlines():
+        match = _PACMAN_REMOVE_RE.match(line.strip())
+        if not match:
+            continue
+        timestamp, _action, pkg_name = match.groups()
+        ts_value = parse_log_timestamp(timestamp, "%Y-%m-%dT%H:%M:%S%z")
+        if ts_value is None:
+            continue
+        pkg_name = pkg_name.lower()
+        if pkg_name not in times or ts_value > times[pkg_name]:
             times[pkg_name] = ts_value
     return times
 
