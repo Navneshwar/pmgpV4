@@ -186,6 +186,11 @@ html, body, [class*="css"] {
     font-size: 1.4rem;
     font-weight: 800;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
     margin-bottom: 1.2rem;
     letter-spacing: 0.8px;
     text-transform: uppercase;
@@ -195,6 +200,37 @@ html, body, [class*="css"] {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
     border: 1px solid rgba(255,255,255,0.3);
+}
+
+.risk-banner-emoji {
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #fff7ed !important;
+    -webkit-text-fill-color: #fff7ed !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.risk-banner-title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.16);
+}
+
+.risk-banner-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: rgba(255, 247, 237, 0.96) !important;
+    -webkit-text-fill-color: rgba(255, 247, 237, 0.96) !important;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.14);
+}
+
+.risk-banner-meta strong,
+.risk-banner-sep {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 
 .risk-banner::after {
@@ -357,24 +393,66 @@ html, body, [class*="css"] {
     box-shadow: var(--card-shadow);
 }
 
+[data-testid="stExpander"] details {
+    background: transparent !important;
+    border-radius: 18px !important;
+}
+
 [data-testid="stExpander"]:hover {
     border-color: var(--indigo-400) !important;
     background: var(--card-bg-hover) !important;
 }
 
 [data-testid="stExpander"] summary {
+    background: rgba(255,255,255,0.72) !important;
     color: var(--text-secondary) !important;
     -webkit-text-fill-color: var(--text-secondary) !important;
     font-weight: 700 !important;
-    padding: 0.5rem;
+    padding: 0.75rem 1rem !important;
     font-size: 0.92rem;
+    border-radius: 18px !important;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+[data-testid="stExpander"] summary:hover {
+    background: rgba(255,255,255,0.9) !important;
+    color: var(--indigo-800) !important;
+    -webkit-text-fill-color: var(--indigo-800) !important;
+}
+
+[data-testid="stExpander"] details[open] > summary {
+    background: rgba(255,255,255,0.96) !important;
+    color: var(--indigo-800) !important;
+    -webkit-text-fill-color: var(--indigo-800) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+[data-testid="stExpander"] summary *,
+[data-testid="stExpander"] summary p,
+[data-testid="stExpander"] summary span,
+[data-testid="stExpander"] summary svg {
+    color: inherit !important;
+    fill: currentColor !important;
+    -webkit-text-fill-color: inherit !important;
+}
+
+[data-testid="stExpander"] details[open] > div {
+    background: rgba(255,255,255,0.96) !important;
+    border-bottom-left-radius: 18px !important;
+    border-bottom-right-radius: 18px !important;
 }
 
 /* ===== Code Blocks ===== */
 [data-testid="stCode"] {
-    background: #f5f3ff !important;
+    background: linear-gradient(180deg, #fcfcff 0%, #f3f1ff 100%) !important;
     border: 1px solid var(--indigo-100) !important;
     border-radius: 14px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+[data-testid="stCode"] pre {
+    background: transparent !important;
 }
 
 [data-testid="stCode"] code, [data-testid="stCode"] * {
@@ -609,12 +687,56 @@ hr {
     box-shadow: 0 8px 28px rgba(99,102,241,0.35) !important;
 }
 
+.stDownloadButton button {
+    background: linear-gradient(135deg, var(--indigo-700), var(--indigo-600)) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 0.92rem !important;
+    padding: 0.8rem 1.3rem !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 4px 16px var(--indigo-glow) !important;
+    letter-spacing: 0.2px;
+}
+
+.stDownloadButton button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(99,102,241,0.35) !important;
+}
+
+.stDownloadButton button:focus,
+.stDownloadButton button:active {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    background: linear-gradient(135deg, var(--indigo-700), var(--indigo-600)) !important;
+}
+
 /* ===== Select / Input fields ===== */
 [data-testid="stSelectbox"] *,
 [data-testid="stTextInput"] *,
 [data-testid="stNumberInput"] * {
     color: var(--text-primary) !important;
     -webkit-text-fill-color: var(--text-primary) !important;
+}
+
+[data-testid="stTextInput"] input,
+[data-testid="stNumberInput"] input,
+[data-testid="stTextArea"] textarea {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: var(--indigo-900) !important;
+    -webkit-text-fill-color: var(--indigo-900) !important;
+    caret-color: var(--indigo-900) !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stTextInput"] input::placeholder,
+[data-testid="stNumberInput"] input::placeholder,
+[data-testid="stTextArea"] textarea::placeholder {
+    color: var(--text-muted) !important;
+    -webkit-text-fill-color: var(--text-muted) !important;
+    opacity: 1 !important;
 }
 
 /* ===== Markdown ===== */

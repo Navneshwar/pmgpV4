@@ -14,11 +14,10 @@ def show_results(result):
 
     st.markdown(
         f'<div class="risk-banner" style="background:{gradient}">'
-        f'<span style="font-size:1.8rem">{RISK_EMOJI.get(rr.overall_risk,"⚪")}</span> '
-        f'&nbsp;{rr.overall_risk} RISK'
-        f'<span style="font-size:1rem; opacity:0.85; font-weight:500;"> &nbsp;—&nbsp; '
-        f'Score: <strong>{rr.risk_score}/100</strong> &nbsp;·&nbsp; '
-        f'Completed in {result.elapsed_seconds:.2f}s</span></div>',
+        f'<span class="risk-banner-emoji">{RISK_EMOJI.get(rr.overall_risk,"⚪")}</span>'
+        f'<span class="risk-banner-title">{rr.overall_risk} RISK</span>'
+        f'<span class="risk-banner-meta">Score: <strong>{rr.risk_score}/100</strong> <span class="risk-banner-sep">·</span> Completed in {result.elapsed_seconds:.2f}s</span>'
+        f'</div>',
         unsafe_allow_html=True,
     )
 
