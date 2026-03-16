@@ -1,0 +1,498 @@
+{
+  "high_risk": {
+    "metasploit": {
+      "packages": ["metasploit-framework", "metasploit"],
+      "binary_paths": [
+        "usr/bin/msfconsole",
+        "usr/share/metasploit-framework/msfconsole",
+        "opt/metasploit-framework/bin/msfconsole"
+      ],
+      "config_traces": [
+        "root/.msf4",
+        "root/.msf4/history",
+        "root/.msf4/logs"
+      ],
+      "description": "Exploitation framework",
+      "mitre_technique": "T1210 - Exploitation of Remote Services",
+      "category": "Exploitation"
+    },
+    "sqlmap": {
+      "packages": ["sqlmap"],
+      "binary_paths": [
+        "usr/bin/sqlmap",
+        "usr/share/sqlmap/sqlmap.py",
+        "opt/sqlmap/sqlmap.py"
+      ],
+      "config_traces": [],
+      "description": "Automated SQL injection tool",
+      "mitre_technique": "T1190 - Exploit Public-Facing Application",
+      "category": "Exploitation"
+    },
+    "john": {
+      "packages": ["john", "john-the-ripper"],
+      "binary_paths": [
+        "usr/bin/john",
+        "usr/sbin/john",
+        "opt/john/run/john"
+      ],
+      "config_traces": [
+        "root/.john",
+        "root/.john/john.pot"
+      ],
+      "description": "Password cracking tool",
+      "mitre_technique": "T1110 - Brute Force",
+      "category": "Credential Access"
+    },
+    "hashcat": {
+      "packages": ["hashcat"],
+      "binary_paths": [
+        "usr/bin/hashcat",
+        "usr/local/bin/hashcat",
+        "opt/hashcat/hashcat"
+      ],
+      "config_traces": [
+        "root/.hashcat",
+        "root/.hashcat/hashcat.potfile"
+      ],
+      "description": "Advanced password recovery",
+      "mitre_technique": "T1110.002 - Password Cracking",
+      "category": "Credential Access"
+    },
+    "aircrack-ng": {
+      "packages": ["aircrack-ng"],
+      "binary_paths": [
+        "usr/bin/aircrack-ng",
+        "usr/bin/airodump-ng",
+        "usr/bin/aireplay-ng"
+      ],
+      "config_traces": [],
+      "description": "WEP/WPA wireless cracking",
+      "mitre_technique": "T1110 - Brute Force",
+      "category": "Credential Access"
+    },
+    "hydra": {
+      "packages": ["hydra", "thc-hydra"],
+      "binary_paths": [
+        "usr/bin/hydra",
+        "usr/bin/xhydra",
+        "usr/local/bin/hydra"
+      ],
+      "config_traces": [
+        "root/.hydra_restored"
+      ],
+      "description": "Network login cracker",
+      "mitre_technique": "T1110.001 - Password Guessing",
+      "category": "Credential Access"
+    },
+    "mimikatz": {
+      "packages": ["mimikatz"],
+      "binary_paths": [
+        "usr/bin/mimikatz",
+        "opt/mimikatz/x64/mimikatz.exe",
+        "tmp/mimikatz",
+        "dev/shm/mimikatz"
+      ],
+      "config_traces": [],
+      "description": "Credential dumping",
+      "mitre_technique": "T1003 - OS Credential Dumping",
+      "category": "Credential Access"
+    },
+    "msfvenom": {
+      "packages": ["msfvenom"],
+      "binary_paths": [
+        "usr/bin/msfvenom",
+        "usr/share/metasploit-framework/msfvenom",
+        "opt/metasploit-framework/bin/msfvenom"
+      ],
+      "config_traces": [],
+      "description": "Payload generator",
+      "mitre_technique": "T1587.001 - Malware Development",
+      "category": "Exploitation"
+    },
+    "setoolkit": {
+      "packages": ["set", "social-engineer-toolkit"],
+      "binary_paths": [
+        "usr/bin/setoolkit",
+        "usr/share/set/setoolkit",
+        "opt/set/setoolkit"
+      ],
+      "config_traces": [
+        "root/.set"
+      ],
+      "description": "Social engineering toolkit",
+      "mitre_technique": "T1566 - Phishing",
+      "category": "Initial Access"
+    },
+    "beef-xss": {
+      "packages": ["beef-xss"],
+      "binary_paths": [
+        "usr/bin/beef",
+        "usr/share/beef-xss/beef"
+      ],
+      "config_traces": [
+        "usr/share/beef-xss/config.yaml"
+      ],
+      "description": "Browser exploitation framework",
+      "mitre_technique": "T1189 - Drive-by Compromise",
+      "category": "Exploitation"
+    },
+    "burpsuite": {
+      "packages": ["burpsuite"],
+      "binary_paths": [
+        "usr/bin/burpsuite",
+        "usr/share/burpsuite/burpsuite.jar",
+        "opt/BurpSuitePro/BurpSuitePro"
+      ],
+      "config_traces": [],
+      "description": "Web vulnerability scanner",
+      "mitre_technique": "T1190 - Exploit Public-Facing Application",
+      "category": "Exploitation"
+    },
+    "exploit-db": {
+      "packages": ["exploitdb", "searchsploit"],
+      "binary_paths": [
+        "usr/bin/searchsploit",
+        "usr/share/exploitdb/searchsploit"
+      ],
+      "config_traces": [],
+      "description": "Exploit database archive",
+      "mitre_technique": "T1588.005 - Exploits",
+      "category": "Resource Development"
+    },
+    "crackmapexec": {
+      "packages": ["crackmapexec", "cme"],
+      "binary_paths": [
+        "usr/bin/crackmapexec",
+        "usr/bin/cme",
+        "usr/local/bin/crackmapexec"
+      ],
+      "config_traces": [
+        "root/.cme"
+      ],
+      "description": "Post-exploitation network mapper for Active Directory",
+      "mitre_technique": "T1018 - Remote System Discovery",
+      "category": "Lateral Movement"
+    },
+    "wifite": {
+      "packages": ["wifite"],
+      "binary_paths": [
+        "usr/bin/wifite",
+        "usr/share/wifite/wifite.py"
+      ],
+      "config_traces": [],
+      "description": "Automated wireless attack tool",
+      "mitre_technique": "T1110 - Brute Force",
+      "category": "Credential Access"
+    },
+    "reaver": {
+      "packages": ["reaver"],
+      "binary_paths": [
+        "usr/bin/reaver",
+        "usr/sbin/reaver"
+      ],
+      "config_traces": [],
+      "description": "WPS PIN brute-force tool",
+      "mitre_technique": "T1110 - Brute Force",
+      "category": "Credential Access"
+    }
+  },
+  "dual_use": {
+    "nmap": {
+      "packages": ["nmap"],
+      "binary_paths": [
+        "usr/bin/nmap",
+        "usr/local/bin/nmap",
+        "opt/nmap/bin/nmap"
+      ],
+      "config_traces": [
+        "root/.nmap"
+      ],
+      "description": "Network mapper and port scanner",
+      "mitre_technique": "T1046 - Network Service Discovery",
+      "category": "Discovery"
+    },
+    "masscan": {
+      "packages": ["masscan"],
+      "binary_paths": [
+        "usr/bin/masscan",
+        "usr/local/bin/masscan"
+      ],
+      "config_traces": [],
+      "description": "Fast port scanner",
+      "mitre_technique": "T1046 - Network Service Discovery",
+      "category": "Discovery"
+    },
+    "wireshark": {
+      "packages": ["wireshark", "wireshark-common"],
+      "binary_paths": [
+        "usr/bin/wireshark",
+        "usr/bin/tshark",
+        "usr/bin/dumpcap"
+      ],
+      "config_traces": [
+        "root/.config/wireshark"
+      ],
+      "description": "Network protocol analyzer",
+      "mitre_technique": "T1040 - Network Sniffing",
+      "category": "Collection"
+    },
+    "tcpdump": {
+      "packages": ["tcpdump"],
+      "binary_paths": [
+        "usr/bin/tcpdump",
+        "usr/sbin/tcpdump"
+      ],
+      "config_traces": [],
+      "description": "Packet analyzer",
+      "mitre_technique": "T1040 - Network Sniffing",
+      "category": "Collection"
+    },
+    "netcat": {
+      "packages": ["netcat", "netcat-traditional", "netcat-openbsd", "ncat"],
+      "binary_paths": [
+        "bin/nc",
+        "bin/netcat",
+        "usr/bin/nc",
+        "usr/bin/netcat",
+        "usr/bin/ncat"
+      ],
+      "config_traces": [],
+      "description": "TCP/UDP networking utility",
+      "mitre_technique": "T1059 - Command and Scripting Interpreter",
+      "category": "Execution"
+    },
+    "nikto": {
+      "packages": ["nikto"],
+      "binary_paths": [
+        "usr/bin/nikto",
+        "usr/share/nikto/nikto.pl"
+      ],
+      "config_traces": [],
+      "description": "Web server vulnerability scanner",
+      "mitre_technique": "T1595 - Active Scanning",
+      "category": "Reconnaissance"
+    },
+    "dirb": {
+      "packages": ["dirb"],
+      "binary_paths": [
+        "usr/bin/dirb",
+        "usr/bin/dirb"
+      ],
+      "config_traces": [],
+      "description": "Web content scanner",
+      "mitre_technique": "T1595.003 - Wordlist Scanning",
+      "category": "Reconnaissance"
+    },
+    "gobuster": {
+      "packages": ["gobuster"],
+      "binary_paths": [
+        "usr/bin/gobuster",
+        "usr/local/bin/gobuster",
+        "opt/gobuster/gobuster"
+      ],
+      "config_traces": [],
+      "description": "Directory/DNS brute forcer",
+      "mitre_technique": "T1595.003 - Wordlist Scanning",
+      "category": "Reconnaissance"
+    },
+    "ffuf": {
+      "packages": ["ffuf"],
+      "binary_paths": [
+        "usr/bin/ffuf",
+        "usr/local/bin/ffuf",
+        "opt/ffuf/ffuf"
+      ],
+      "config_traces": [],
+      "description": "Web fuzzer",
+      "mitre_technique": "T1595.003 - Wordlist Scanning",
+      "category": "Reconnaissance"
+    },
+    "recon-ng": {
+      "packages": ["recon-ng"],
+      "binary_paths": [
+        "usr/bin/recon-ng",
+        "usr/share/recon-ng/recon-ng"
+      ],
+      "config_traces": [
+        "root/.recon-ng"
+      ],
+      "description": "Web reconnaissance framework",
+      "mitre_technique": "T1589 - Gather Victim Identity Information",
+      "category": "Reconnaissance"
+    },
+    "maltego": {
+      "packages": ["maltego"],
+      "binary_paths": [
+        "usr/bin/maltego",
+        "opt/Maltego/maltego"
+      ],
+      "config_traces": [],
+      "description": "Visual link analysis tool",
+      "mitre_technique": "T1591 - Gather Victim Org Information",
+      "category": "Reconnaissance"
+    },
+    "ettercap": {
+      "packages": ["ettercap-common", "ettercap-graphical"],
+      "binary_paths": [
+        "usr/bin/ettercap",
+        "usr/sbin/ettercap"
+      ],
+      "config_traces": [
+        "etc/ettercap/etter.conf"
+      ],
+      "description": "MitM attack tool",
+      "mitre_technique": "T1557 - Adversary-in-the-Middle",
+      "category": "Collection"
+    },
+    "responder": {
+      "packages": ["responder"],
+      "binary_paths": [
+        "usr/bin/responder",
+        "usr/share/responder/Responder.py",
+        "opt/Responder/Responder.py"
+      ],
+      "config_traces": [
+        "usr/share/responder/Responder.conf",
+        "opt/Responder/Responder.conf"
+      ],
+      "description": "LLMNR/NBT-NS poisoner",
+      "mitre_technique": "T1557.001 - LLMNR/NBT-NS Poisoning",
+      "category": "Collection"
+    },
+    "impacket": {
+      "packages": ["python-impacket", "impacket-scripts"],
+      "binary_paths": [
+        "usr/bin/impacket-secretsdump",
+        "usr/bin/impacket-psexec",
+        "usr/bin/impacket-wmiexec",
+        "usr/local/bin/secretsdump.py",
+        "opt/impacket/examples/secretsdump.py"
+      ],
+      "config_traces": [],
+      "description": "Network protocols toolkit",
+      "mitre_technique": "T1550 - Use Alternate Authentication Material",
+      "category": "Lateral Movement"
+    },
+    "enum4linux": {
+      "packages": ["enum4linux"],
+      "binary_paths": [
+        "usr/bin/enum4linux",
+        "usr/share/enum4linux/enum4linux.pl"
+      ],
+      "config_traces": [],
+      "description": "Windows/Samba enumeration",
+      "mitre_technique": "T1018 - Remote System Discovery",
+      "category": "Discovery"
+    },
+    "bettercap": {
+      "packages": ["bettercap"],
+      "binary_paths": [
+        "usr/bin/bettercap",
+        "usr/local/bin/bettercap"
+      ],
+      "config_traces": [
+        "root/.bettercap-history"
+      ],
+      "description": "Network attack and monitoring framework",
+      "mitre_technique": "T1557 - Adversary-in-the-Middle",
+      "category": "Collection"
+    }
+  },
+  "anonymization": {
+    "tor": {
+      "packages": ["tor", "torbrowser-launcher"],
+      "binary_paths": [
+        "usr/bin/tor",
+        "usr/sbin/tor"
+      ],
+      "config_traces": [
+        "etc/tor/torrc",
+        "var/lib/tor",
+        "root/.tor"
+      ],
+      "description": "Onion routing anonymizer",
+      "mitre_technique": "T1090.003 - Multi-hop Proxy",
+      "category": "Command and Control"
+    },
+    "proxychains": {
+      "packages": ["proxychains", "proxychains4", "proxychains-ng"],
+      "binary_paths": [
+        "usr/bin/proxychains",
+        "usr/bin/proxychains4",
+        "usr/local/bin/proxychains"
+      ],
+      "config_traces": [
+        "etc/proxychains.conf",
+        "etc/proxychains4.conf",
+        "root/.proxychains/proxychains.conf"
+      ],
+      "description": "TCP proxy chaining tool",
+      "mitre_technique": "T1090 - Proxy",
+      "category": "Command and Control"
+    },
+    "openvpn": {
+      "packages": ["openvpn"],
+      "binary_paths": [
+        "usr/sbin/openvpn",
+        "usr/bin/openvpn"
+      ],
+      "config_traces": [
+        "etc/openvpn",
+        "root/.config/openvpn"
+      ],
+      "description": "VPN tunnel",
+      "mitre_technique": "T1090.002 - External Proxy",
+      "category": "Command and Control"
+    },
+    "macchanger": {
+      "packages": ["macchanger"],
+      "binary_paths": [
+        "usr/bin/macchanger",
+        "usr/sbin/macchanger"
+      ],
+      "config_traces": [],
+      "description": "MAC address spoofing",
+      "mitre_technique": "T1036 - Masquerading",
+      "category": "Defense Evasion"
+    },
+    "i2p": {
+      "packages": ["i2p"],
+      "binary_paths": [
+        "usr/bin/i2p",
+        "usr/share/i2p/i2prouter"
+      ],
+      "config_traces": [
+        "root/.i2p"
+      ],
+      "description": "Invisible Internet Project router",
+      "mitre_technique": "T1090.003 - Multi-hop Proxy",
+      "category": "Command and Control"
+    },
+    "anonsurf": {
+      "packages": ["anonsurf"],
+      "binary_paths": [
+        "usr/bin/anonsurf",
+        "usr/sbin/anonsurf"
+      ],
+      "config_traces": [
+        "etc/anonsurf"
+      ],
+      "description": "System-wide anonymization",
+      "mitre_technique": "T1090 - Proxy",
+      "category": "Command and Control"
+    },
+    "torsocks": {
+      "packages": ["torsocks"],
+      "binary_paths": [
+        "usr/bin/torsocks",
+        "usr/local/bin/torsocks"
+      ],
+      "config_traces": [
+        "etc/tor/torsocks.conf"
+      ],
+      "description": "Route application traffic through Tor",
+      "mitre_technique": "T1090.003 - Multi-hop Proxy",
+      "category": "Command and Control"
+    }
+  }
+}
